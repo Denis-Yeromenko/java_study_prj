@@ -14,5 +14,10 @@ public class Main {
         int randInt = (int) (Math.random() * 91 + 10);
         String result = String.format("The random number is %s! Try again!", randInt);
         System.out.println(result);
+
+        int randFirst = (int) (Math.random() * 1000000);
+
+        
+
     }
 }
