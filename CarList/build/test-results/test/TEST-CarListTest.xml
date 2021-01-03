@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CarListTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2021-01-03T13:30:58" hostname="DESKTOP-UOUR7TO" time="0.072">
+  <properties/>
+  <testcase name="whenAdded100ElementsThenSizeMustBe100" classname="CarListTest" time="0.059"/>
+  <testcase name="methodGetReturnedRightValue" classname="CarListTest" time="0.002"/>
+  <testcase name="whenIndexOutOfBoundsThenThrowException" classname="CarListTest" time="0.004"/>
+  <testcase name="whenRemovedElementByIndexThenSizeMustBeDecreased" classname="CarListTest" time="0.002"/>
+  <testcase name="whenListClearedThenSizeMustBe0" classname="CarListTest" time="0.001"/>
+  <testcase name="whenNonExistentElementRemovedThenReturnFalse" classname="CarListTest" time="0.0"/>
+  <testcase name="whenRemovedElementThenSizeMustBeDecreased" classname="CarListTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
