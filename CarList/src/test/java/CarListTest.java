@@ -4,11 +4,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CarListTest {
-    public CarList carList;
+    private CarList carList;
 
     @Before
     public void setUp() throws Exception {
-        carList = new CarListArray();
+
         for (int i = 0; i < 100; i++) {
             carList.add(new Car("Brand" + i, i));
         }
@@ -16,30 +16,29 @@ public class CarListTest {
     }
 
     @Test
-    public void whenAdded100ElementsThenSizeMustBe100() {
+    public void when100ElementsAddedThenSizeMustBe100() {
         assertEquals(100, carList.size());
     }
 
     @Test
-    public void whenRemovedElementByIndexThenSizeMustBeDecreased() {
-        assertTrue(carList.removeAt(4));
+    public void whenElementRemovedByIndexThenSizeMustBeDecreased() {
+        assertTrue(carList.removeAt(5));
         assertEquals(99, carList.size());
     }
 
     @Test
-    public void whenRemovedElementThenSizeMustBeDecreased() {
-        Car car = new Car("Toyota", 15);
+    public void whenElementRemovedThenSizeMustBeDecreased() {
+        Car car = new Car("Mazda", 13);
         carList.add(car);
         assertEquals(101, carList.size());
         assertTrue(carList.remove(car));
-        assertEquals(100, carList.size());
+        assertEquals(99, carList.size());
     }
 
     @Test
-    public void whenNonExistentElementRemovedThenReturnFalse() {
-        Car car = new Car("Toyota", 15);
+    public void whenRemovedNonExistentElementThenReturnFalse() {
+        Car car = new Car("Mazda", 13);
         assertFalse(carList.remove(car));
-        assertEquals(100, carList.size());
     }
 
     @Test
@@ -54,9 +53,9 @@ public class CarListTest {
     }
 
     @Test
-    public void methodGetReturnedRightValue() {
+    public void getMethodMustReturnedRightValue() {
         Car car = carList.get(0);
         assertEquals("Brand0", car.getBrand());
-    }
 
+    }
 }
