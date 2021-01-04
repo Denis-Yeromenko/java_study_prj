@@ -8,7 +8,7 @@ public class CarListTest {
 
     @Before
     public void setUp() throws Exception {
-
+        carList = new CarListArray();
         for (int i = 0; i < 100; i++) {
             carList.add(new Car("Brand" + i, i));
         }
@@ -32,7 +32,7 @@ public class CarListTest {
         carList.add(car);
         assertEquals(101, carList.size());
         assertTrue(carList.remove(car));
-        assertEquals(99, carList.size());
+        assertEquals(100, carList.size());
     }
 
     @Test

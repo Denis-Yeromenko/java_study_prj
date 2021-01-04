@@ -1,25 +1,43 @@
 import java.util.Arrays;
 
-public class CarListArray implements CarList{
-    
+public class CarListArray implements CarList {
+    private Car[] array = new Car[10];
+    private int size = 0;
+
     @Override
     public Car get(int index) {
-        return null;
+        checkIndex(index);
+        return array[index];
     }
 
     @Override
     public void add(Car car) {
+        if (size >= array.length) {
+            array = Arrays.copyOf(array, array.length * 2);
+        }
+        array[size] = car;
+        size++;
 
     }
 
     @Override
     public boolean remove(Car car) {
-        return false;
+        for(int i = 0; i < size; i++){
+            if(array[i].equals(car)){
+                return removeAt(i);
+            }
+        }
+       return false;
     }
 
     @Override
     public boolean removeAt(int index) {
-        return false;
+        checkIndex(index);
+        for(int i = index; i < size-1; i++){
+            array[i] = array[i+1];
+        }
+        size--;
+        return true;
     }
 
     @Override
@@ -29,12 +47,13 @@ public class CarListArray implements CarList{
 
     @Override
     public void clear() {
-
+        array = new Car[10];
+        size = 0;
     }
 
-    public void checkIndex(int index){
-        if(index <0 || index > size){
-
+    public void checkIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
         }
     }
 }
