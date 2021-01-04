@@ -58,4 +58,28 @@ public class CarListTest {
         assertEquals("Brand0", car.getBrand());
 
     }
+
+    @Test
+    public void addedToTheMiddleOfList(){
+        Car car = new Car("BMW", 2);
+        carList.add(car, 13);
+        Car getCar = carList.get(13);
+        assertEquals("BMW", getCar.getBrand());
+    }
+
+    @Test
+    public void addedToTheFirstNumberOfList(){
+        Car car = new Car("BMW", 2);
+        carList.add(car, 0);
+        Car getCar = carList.get(0);
+        assertEquals("BMW", getCar.getBrand());
+    }
+
+    @Test
+    public void addedToTheLastNumberOfList(){
+        Car car = new Car("BMW", 2);
+        carList.add(car, carList.size());
+        Car getCar = carList.get(carList.size()-1);
+        assertEquals("BMW", getCar.getBrand());
+    }
 }
