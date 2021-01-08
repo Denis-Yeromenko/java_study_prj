@@ -37,6 +37,15 @@ public class CarSetTest {
     }
 
     @Test
+    public void whenSearchItemExistInListThenReturnTrue(){
+        Car car = new Car("BMW", 525);
+        Car car2 = new Car("Toyota", 52);
+        carSetList.add(car);
+        assertTrue(carSetList.contains(car));
+        assertFalse(carSetList.contains(car2));
+    }
+
+    @Test
     public void whenRemoveExistElementThenReturnTrueAndSizeDecrease(){
         Car car = new Car("BMW",225);
         assertTrue(carSetList.add(car));

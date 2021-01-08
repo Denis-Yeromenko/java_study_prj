@@ -8,7 +8,7 @@ public class CarListTest {
 
     @Before
     public void setUp() throws Exception {
-        carList = new CarLinkedList();
+        carList = new CarListArray();
         for (int i = 0; i < 100; i++) {
             carList.add(new Car("Brand" + i, i));
         }
@@ -45,6 +45,15 @@ public class CarListTest {
     public void whenListClearedThenSizeMustBe0() {
         carList.clear();
         assertEquals(0, carList.size());
+    }
+
+    @Test
+    public void whenSearchItemExistInListThenReturnTrue(){
+        Car car = new Car("BMW", 525);
+        Car car2 = new Car("Toyota", 52);
+        carList.add(car);
+        assertTrue(carList.contains(car));
+        assertFalse(carList.contains(car2));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
