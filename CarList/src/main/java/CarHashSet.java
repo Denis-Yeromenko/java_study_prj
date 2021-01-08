@@ -31,23 +31,25 @@ public class CarHashSet implements CarSet {
         int position = getElementPosition(car, array.length);
         if (array[position] == null) {
             return false;
-        } else {
-            Entry existedElement = array[position];
-            while (true) {
-                if (existedElement.value.equals(car)) {
-                    if (existedElement.next == null) {
-                        existedElement = null;
-                    }else{
-                        existedElement = existedElement.next;
-                    }
-                    size--;
-                    return true;
-                }else{
-                    existedElement = existedElement.next;
-                }
+        }
+        Entry secondLast = array[position];
+        Entry last = secondLast.next;
+        if (secondLast.value.equals(car)) {
+            array[position] = last;
+            size--;
+            return true;
+        }
+        while (last != null) {
+            if (last.value.equals(car)) {
+                secondLast.next = last.next;
+                size--;
+                return true;
+            } else {
+                secondLast = last;
+                last = last.next;
             }
         }
-
+        return false;
     }
 
     @Override

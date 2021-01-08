@@ -8,7 +8,7 @@ public class CarSetTest {
 
     @Before
     public void setUp() throws Exception {
-        //carSetList;
+        carSetList = new CarHashSet();
         for (int i = 0; i < 100; i++){
             carSetList.add(new Car("Brand"+i, i));
         }
@@ -21,11 +21,12 @@ public class CarSetTest {
 
     @Test
     public void whenTryToAddExistElementThenReturnFalse(){
-        Car car = new Car("Brand20",20);
+        Car car = new Car("BMW",525);
+        assertTrue(carSetList.add(car));
+        assertEquals(101,carSetList.size());
         assertFalse(carSetList.add(car));
         assertFalse(carSetList.add(car));
-        assertFalse(carSetList.add(car));
-        assertEquals(100,carSetList.size());
+        assertEquals(101,carSetList.size());
     }
 
     @Test
@@ -37,9 +38,11 @@ public class CarSetTest {
 
     @Test
     public void whenRemoveExistElementThenReturnTrueAndSizeDecrease(){
-        Car car = new Car("Brand30",30);
+        Car car = new Car("BMW",225);
+        assertTrue(carSetList.add(car));
+        assertEquals(101,carSetList.size());
         assertTrue(carSetList.remove(car));
-        assertEquals(99,carSetList.size());
+        assertEquals(100,carSetList.size());
     }
 
     @Test
