@@ -23,6 +23,8 @@ public class CarSetTest {
     public void whenTryToAddExistElementThenReturnFalse(){
         Car car = new Car("Brand20",20);
         assertFalse(carSetList.add(car));
+        assertFalse(carSetList.add(car));
+        assertFalse(carSetList.add(car));
         assertEquals(100,carSetList.size());
     }
 
@@ -41,7 +43,7 @@ public class CarSetTest {
     }
 
     @Test
-    public void whenRemoveNotExistElementThenReturnFalseAndSizeNotDecrease(){
+    public void whenRemoveNotExistedElementThenReturnFalseAndSizeNotDecrease(){
         Car car = new Car("Brand101",12);
         assertFalse(carSetList.remove(car));
         assertEquals(100,carSetList.size());
