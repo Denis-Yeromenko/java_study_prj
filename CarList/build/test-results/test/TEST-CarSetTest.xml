@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CarSetTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-01-08T14:08:44" hostname="DESKTOP-UOUR7TO" time="0.029">
+<testsuite name="CarSetTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-01-08T15:00:34" hostname="DESKTOP-UOUR7TO" time="0.046">
   <properties/>
-  <testcase name="whenRemoveExistElementThenReturnTrueAndSizeDecrease" classname="CarSetTest" time="0.015"/>
-  <testcase name="whenTryToAddNotExistElementThenReturnTrue" classname="CarSetTest" time="0.002"/>
-  <testcase name="when100NotExistElementsAddedThenSizeMustBe100" classname="CarSetTest" time="0.001"/>
-  <testcase name="whenRemoveNotExistedElementThenReturnFalseAndSizeNotDecrease" classname="CarSetTest" time="0.0"/>
-  <testcase name="whenListClearedThenSizeMustBe0" classname="CarSetTest" time="0.001"/>
-  <testcase name="whenTryToAddExistElementThenReturnFalse" classname="CarSetTest" time="0.004"/>
+  <testcase name="whenRemoveExistElementThenReturnTrueAndSizeDecrease" classname="CarSetTest" time="0.022"/>
+  <testcase name="whenTryToAddNotExistElementThenReturnTrue" classname="CarSetTest" time="0.004"/>
+  <testcase name="when100NotExistElementsAddedThenSizeMustBe100" classname="CarSetTest" time="0.008"/>
+  <testcase name="whenRemoveNotExistedElementThenReturnFalseAndSizeNotDecrease" classname="CarSetTest" time="0.005"/>
+  <testcase name="whenListClearedThenSizeMustBe0" classname="CarSetTest" time="0.004"/>
+  <testcase name="whenTryToAddExistElementThenReturnFalse" classname="CarSetTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
