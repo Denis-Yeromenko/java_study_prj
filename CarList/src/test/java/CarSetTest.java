@@ -67,4 +67,13 @@ public class CarSetTest {
         carSetList.clear();
         assertEquals(0, carSetList.size());
     }
+
+    @Test
+    public void forEach() {
+        int index = 0;
+        for (Car car : carSetList) {
+            index++;
+        }
+        assertEquals(100, index);
+    }
 }

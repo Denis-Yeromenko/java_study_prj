@@ -8,7 +8,7 @@ public class CarListTest {
 
     @Before
     public void setUp() throws Exception {
-        carList = new CarListArray();
+        carList = new CarLinkedList();
         for (int i = 0; i < 100; i++) {
             carList.add(new Car("Brand" + i, i));
         }
@@ -48,7 +48,7 @@ public class CarListTest {
     }
 
     @Test
-    public void whenSearchItemExistInListThenReturnTrue(){
+    public void whenSearchItemExistInListThenReturnTrue() {
         Car car = new Car("BMW", 525);
         Car car2 = new Car("Toyota", 52);
         carList.add(car);
@@ -69,7 +69,7 @@ public class CarListTest {
     }
 
     @Test
-    public void addedToTheMiddleOfList(){
+    public void addedToTheMiddleOfList() {
         Car car = new Car("BMW", 2);
         carList.add(car, 13);
         Car getCar = carList.get(13);
@@ -77,7 +77,7 @@ public class CarListTest {
     }
 
     @Test
-    public void addedToTheFirstNumberOfList(){
+    public void addedToTheFirstNumberOfList() {
         Car car = new Car("BMW", 2);
         carList.add(car, 0);
         Car getCar = carList.get(0);
@@ -85,10 +85,19 @@ public class CarListTest {
     }
 
     @Test
-    public void addedToTheLastNumberOfList(){
+    public void addedToTheLastNumberOfList() {
         Car car = new Car("BMW", 2);
         carList.add(car, carList.size());
-        Car getCar = carList.get(carList.size()-1);
+        Car getCar = carList.get(carList.size() - 1);
         assertEquals("BMW", getCar.getBrand());
+    }
+
+    @Test
+    public void forEach() {
+        int index = 0;
+        for (Car car : carList) {
+            index++;
+        }
+        assertEquals(100, index);
     }
 }

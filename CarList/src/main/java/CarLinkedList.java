@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class CarLinkedList implements CarList {
     private Node first;
     private Node last;
@@ -85,7 +87,7 @@ public class CarLinkedList implements CarList {
     public boolean contains(Car car) {
         for (int i = 0; i < size; i++) {
             Node existCar = getNode(i);
-            if(existCar.value.equals(car)){
+            if (existCar.value.equals(car)) {
                 return true;
             }
         }
@@ -103,6 +105,25 @@ public class CarLinkedList implements CarList {
         last = null;
         size = 0;
 
+    }
+
+    @Override
+    public Iterator<Car> iterator() {
+        return new Iterator<Car>() {
+            private Node node = first;
+
+            @Override
+            public boolean hasNext() {
+                return node.next != null;
+            }
+
+            @Override
+            public Car next() {
+                Car car = node.value;
+                node = node.next;
+                return car;
+            }
+        };
     }
 
     private Node getNode(int index) {

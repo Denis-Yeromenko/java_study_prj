@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class CarHashSet implements CarSet {
     private static final int INITIAL_CAPACITY = 16;
     private static final double LOAD_FACTOR = 0.75;
@@ -86,6 +88,22 @@ public class CarHashSet implements CarSet {
         size = 0;
         array = new Entry[INITIAL_CAPACITY];
 
+    }
+
+    @Override
+    public Iterator<Car> iterator() {
+        return new Iterator<Car>() {
+
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Car next() {
+                return null;
+            }
+        }
     }
 
     private void increaseArray() {
