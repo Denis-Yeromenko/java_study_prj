@@ -94,31 +94,29 @@ public class CarHashSet implements CarSet {
     public Iterator<Car> iterator() {
         return new Iterator<Car>() {
             int index = 0;
+            int arrayIndex = 0;
+            Entry entry;
 
             @Override
             public boolean hasNext() {
-                return index < array.length;
+                return index < size;
             }
 
             @Override
             public Car next() {
-                Entry arrayCell = array[index];
-                Entry secondLast = arrayCell;
-                Entry last = secondLast.next;
-                if (arrayCell == null) {
-                    index++;
+                while (array[arrayIndex] == null) {
+                    arrayIndex++;
                 }
-                if (last == null) {
-                    index++;
-                    return secondLast.value;
-                } else {
-                    while (last != null) {
-                        Car car = secondLast.value;
-                        secondLast = last;
-                        last = secondLast.next;
-                        return car;
-                    }
+                if (entry == null) {
+                    entry = array[arrayIndex];
                 }
+                Car result = entry.value;
+                entry = entry.next;
+                if(entry == null){
+                    arrayIndex++;
+                }
+                index++;
+                return result;
             }
         };
     }
