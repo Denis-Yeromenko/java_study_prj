@@ -71,7 +71,7 @@ public class CarHashSet implements CarSet {
         while (elementCell != null) {
             if (elementCell.value.equals(car)) {
                 return true;
-            }else{
+            } else {
                 elementCell = elementCell.next;
             }
         }
@@ -93,17 +93,34 @@ public class CarHashSet implements CarSet {
     @Override
     public Iterator<Car> iterator() {
         return new Iterator<Car>() {
+            int index = 0;
 
             @Override
             public boolean hasNext() {
-                return false;
+                return index < array.length;
             }
 
             @Override
             public Car next() {
-                return null;
+                Entry arrayCell = array[index];
+                Entry secondLast = arrayCell;
+                Entry last = secondLast.next;
+                if (arrayCell == null) {
+                    index++;
+                }
+                if (last == null) {
+                    index++;
+                    return secondLast.value;
+                } else {
+                    while (last != null) {
+                        Car car = secondLast.value;
+                        secondLast = last;
+                        last = secondLast.next;
+                        return car;
+                    }
+                }
             }
-        }
+        };
     }
 
     private void increaseArray() {
