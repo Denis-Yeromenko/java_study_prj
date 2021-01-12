@@ -2,6 +2,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        Car car = new Car("Toyota", 312);
+        System.out.println(car);
         Set<Integer> numbers = new TreeSet<>(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
