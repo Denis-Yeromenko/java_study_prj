@@ -11,7 +11,7 @@ public class BoxTest {
 
         double result = box1.getInteg() + box1.getDoub() + box2.getInteg() + box2.getDoub();
 
-        assertEquals(49.16, result,2);
+        assertEquals(49.16, result,0.01);
 
     }
 
