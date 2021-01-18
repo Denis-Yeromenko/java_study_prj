@@ -4,71 +4,71 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CarMapTest {
-    private CarMap map;
+    private CarMap<CarOwner, Car> map;
 
     @Before
     public void setUp() throws Exception {
-        map = new CarHashMap();
+        map = new CarHashMap<>();
     }
 
     @Test
-    public void whenAdd100ThenSizeMustBe100() {
+    public void whenPut100ElementsThenSizeBecome100() {
         for (int i = 0; i < 100; i++) {
-            CarOwner carOwner = new CarOwner(i, "name" + i, "lastname" + i);
-            Car car = new Car("brand" + i, i);
+            CarOwner carOwner = new CarOwner(i, "Name" + i, "LastName" + i);
+            Car car = new Car("Brand" + i, i);
             map.put(carOwner, car);
         }
         assertEquals(100, map.size());
     }
 
     @Test
-    public void whenPut100AndDifferent10ThenSizeMustBe10() {
+    public void whenPut100ElementsWith10DifferentKeysThenSize10() {
         for (int i = 0; i < 100; i++) {
-            int index = i % 100;
-            CarOwner carOwner = new CarOwner(index, "name" + index, "lastname" + index);
-            Car car = new Car("brand" + index, index);
+            int index = i % 10;
+            CarOwner carOwner = new CarOwner(index, "Name" + index, "LastName" + index);
+            Car car = new Car("Brand" + index, index);
             map.put(carOwner, car);
         }
         assertEquals(10, map.size());
     }
 
     @Test
-    public void whenRemoveElementThenSizeMustBeDecreased() {
+    public void removeReturnTrueOnlyOnce() {
         for (int i = 0; i < 10; i++) {
-            CarOwner carOwner = new CarOwner(i, "name" + i, "lastname" + i);
-            Car car = new Car("brand" + i, i);
+            CarOwner carOwner = new CarOwner(i, "Name" + i, "LastName" + i);
+            Car car = new Car("Brand" + i, i);
             map.put(carOwner, car);
         }
         assertEquals(10, map.size());
-        CarOwner removedElement = new CarOwner(5,"name5","lastname5");
-        //return true only once
-        assertTrue(map.remove(removedElement));
+
+        CarOwner elementForDeleting = new CarOwner(5, "Name5", "LastName5");
+        assertTrue(map.remove(elementForDeleting));
         assertEquals(9, map.size());
-        assertFalse(map.remove(removedElement));
+        assertFalse(map.remove(elementForDeleting));
     }
 
     @Test
-    public void countOfKeysMustBeEqualCountOfValues() {
+    public void countOfKeysMustBeEqualsToCountOfValues() {
         for (int i = 0; i < 100; i++) {
-            CarOwner carOwner = new CarOwner(i, "name" + i, "lastname" + i);
-            Car car = new Car("brand" + i, i);
+            CarOwner carOwner = new CarOwner(i, "Name" + i, "LastName" + i);
+            Car car = new Car("Brand" + i, i);
             map.put(carOwner, car);
         }
+        assertEquals(100, map.size());
         assertEquals(100, map.keySet().size());
         assertEquals(100, map.values().size());
     }
 
     @Test
-    public void methodGetMustReturnRightValue(){
+    public void methodGetMustReturnRightValue() {
         for (int i = 0; i < 100; i++) {
-            CarOwner carOwner = new CarOwner(i, "name" + i, "lastname" + i);
-            Car car = new Car("brand" + i, i);
+            CarOwner carOwner = new CarOwner(i, "Name" + i, "LastName" + i);
+            Car car = new Car("Brand" + i, i);
             map.put(carOwner, car);
         }
-        CarOwner key = new CarOwner(50,"name50","lastname50");
+        CarOwner key = new CarOwner(50, "Name50", "LastName50");
         Car value = map.get(key);
-        String expectedBrand = "brand50";
-        assertEquals(expectedBrand, value.getBrand());
+        String expectedCarBrand = "Brand50";
+        assertEquals(expectedCarBrand, value.getBrand());
     }
-
 }

@@ -4,76 +4,37 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CarSetTest {
-    CarSet carSetList;
+
+    private CarSet<Car> carSet;
 
     @Before
     public void setUp() throws Exception {
-        carSetList = new CarHashSet();
-        for (int i = 0; i < 100; i++){
-            carSetList.add(new Car("Brand"+i, i));
+        carSet = new CarHashSet<>();
+        for (int i = 0; i < 100; i++) {
+            carSet.add(new Car("Brand" + i, i));
         }
     }
 
     @Test
-    public void when100NotExistElementsAddedThenSizeMustBe100(){
-        assertEquals(100,carSetList.size());
+    public void whenAdd3SimilarObjectsThenSizeIncreaseBy1() {
+        assertEquals(100, carSet.size());
+        assertTrue(carSet.add(new Car("BMW", 10)));
+        assertFalse(carSet.add(new Car("BMW", 10)));
+        assertFalse(carSet.add(new Car("BMW", 10)));
+        assertEquals(101, carSet.size());
     }
 
     @Test
-    public void whenTryToAddExistElementThenReturnFalse(){
-        Car car = new Car("BMW",525);
-        assertTrue(carSetList.add(car));
-        assertEquals(101,carSetList.size());
-        assertFalse(carSetList.add(car));
-        assertFalse(carSetList.add(car));
-        assertEquals(101,carSetList.size());
+    public void whenSetClearedThenSize0() {
+        carSet.clear();
+        assertEquals(0, carSet.size());
     }
 
     @Test
-    public void whenTryToAddNotExistElementThenReturnTrue(){
-        Car car = new Car("Brand101",101);
-        assertTrue(carSetList.add(car));
-        assertEquals(101,carSetList.size());
-    }
-
-    @Test
-    public void whenSearchItemExistInListThenReturnTrue(){
-        Car car = new Car("BMW", 525);
-        Car car2 = new Car("Toyota", 52);
-        carSetList.add(car);
-        assertTrue(carSetList.contains(car));
-        assertFalse(carSetList.contains(car2));
-    }
-
-    @Test
-    public void whenRemoveExistElementThenReturnTrueAndSizeDecrease(){
-        Car car = new Car("BMW",225);
-        assertTrue(carSetList.add(car));
-        assertEquals(101,carSetList.size());
-        assertTrue(carSetList.remove(car));
-        assertEquals(100,carSetList.size());
-    }
-
-    @Test
-    public void whenRemoveNotExistedElementThenReturnFalseAndSizeNotDecrease(){
-        Car car = new Car("Brand101",12);
-        assertFalse(carSetList.remove(car));
-        assertEquals(100,carSetList.size());
-    }
-    
-
-    @Test
-    public void whenListClearedThenSizeMustBe0() {
-        carSetList.clear();
-        assertEquals(0, carSetList.size());
-    }
-
-    @Test
-    public void forEach() {
-        int index = 0;
-        for (Car car : carSetList) {
-            index++;
-        }
-        assertEquals(100, index);
+    public void whenElementRemovedThenSizeDecreased() {
+        assertTrue(carSet.remove(new Car("Brand30", 30)));
+        assertEquals(99, carSet.size());
+        assertFalse(carSet.remove(new Car("Brand30", 30)));
+        assertEquals(99, carSet.size());
     }
 }

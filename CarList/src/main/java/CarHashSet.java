@@ -1,149 +1,44 @@
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class CarHashSet<T> implements CarSet<T> {
-    private static final int INITIAL_CAPACITY = 16;
-    private static final double LOAD_FACTOR = 0.75;
-    private int size = 0;
-    private static Entry[] array = new Entry[INITIAL_CAPACITY];
+
+    private Map<T, Object> map = new HashMap<>();
+    private Object object = new Object();
 
     @Override
     public boolean add(T car) {
-        if (size >= array.length * LOAD_FACTOR) {
-            increaseArray();
+        if (map.containsKey(car)) {
+            return false;
         }
-        boolean added = add(car, array);
-        if (added) {
-            size++;
-        }
-        return added;
-    }
-
-    public boolean add(T car, Entry[] dest) {
-        int position = getElementPosition(car, dest.length);
-        if (dest[position] == null) {
-            dest[position] = new Entry(car, null);
-            return true;
-        } else {
-            Entry existedElement = dest[position];
-            while (true) {
-                if (existedElement.value.equals(car)) {
-                    return false;
-                } else if (existedElement.next == null) {
-                    existedElement.next = new Entry(car, null);
-                    return true;
-                } else {
-                    existedElement = existedElement.next;
-                }
-            }
-        }
+        map.put(car, object);
+        return true;
     }
 
     @Override
     public boolean remove(T car) {
-        int position = getElementPosition(car, array.length);
-        if (array[position] == null) {
-            return false;
-        }
-        Entry secondLast = array[position];
-        Entry last = secondLast.next;
-        if (secondLast.value.equals(car)) {
-            array[position] = last;
-            size--;
-            return true;
-        }
-        while (last != null) {
-            if (last.value.equals(car)) {
-                secondLast.next = last.next;
-                size--;
-                return true;
-            } else {
-                secondLast = last;
-                last = last.next;
-            }
-        }
-        return false;
+        Object removed = map.remove(car);
+        return removed != null;
     }
 
     @Override
     public boolean contains(T car) {
-        int numberCell = getElementPosition(car, array.length);
-        Entry elementCell = array[numberCell];
-        while (elementCell != null) {
-            if (elementCell.value.equals(car)) {
-                return true;
-            } else {
-                elementCell = elementCell.next;
-            }
-        }
-        return false;
+        return map.containsKey(car);
     }
 
     @Override
     public int size() {
-        return size;
+        return map.size();
     }
 
     @Override
     public void clear() {
-        size = 0;
-        array = new Entry[INITIAL_CAPACITY];
-
+        map.clear();
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            int index = 0;
-            int arrayIndex = 0;
-            Entry entry;
-
-            @Override
-            public boolean hasNext() {
-                return index < size;
-            }
-
-            @Override
-            public T next() {
-                while (array[arrayIndex] == null) {
-                    arrayIndex++;
-                }
-                if (entry == null) {
-                    entry = array[arrayIndex];
-                }
-                T result = entry.value;
-                entry = entry.next;
-                if(entry == null){
-                    arrayIndex++;
-                }
-                index++;
-                return result;
-            }
-        };
-    }
-
-    private void increaseArray() {
-        Entry[] newArray = new Entry[array.length * 2];
-        for (Entry entry : array) {
-            Entry existedElement = entry;
-            while (existedElement != null) {
-                add(existedElement.value, newArray);
-                existedElement = existedElement.next;
-            }
-        }
-    }
-
-    private int getElementPosition(T car, int arrayLength) {
-        return Math.abs(car.hashCode() % arrayLength);
-
-    }
-
-    private class Entry {
-        T value;
-        Entry next;
-
-        public Entry(T value, Entry next) {
-            this.value = value;
-            this.next = next;
-        }
+        return map.keySet().iterator();
     }
 }

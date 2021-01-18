@@ -1,14 +1,14 @@
 import java.util.Iterator;
 
-public class CarLinkedList<T> implements CarList<T> {
+public class CarLinkedList<T> implements CarList<T>, CarQueue<T> {
+
     private Node first;
     private Node last;
     private int size = 0;
 
     @Override
     public T get(int index) {
-        Node node = getNode(index);
-        return node.value;
+        return getNode(index).value;
     }
 
     @Override
@@ -33,17 +33,12 @@ public class CarLinkedList<T> implements CarList<T> {
         if (index == size) {
             return add(car);
         }
-        Node nextNode = getNode(index);
-        Node previousNode = nextNode.previous;
-        Node newNode = new Node(previousNode, car, nextNode);
-        if (nextNode.next != null) {
-            nextNode.previous = newNode;
-        } else {
-            last = nextNode;
-        }
-
-        if (previousNode != null) {
-            previousNode.next = newNode;
+        Node nodeNext = getNode(index);
+        Node nodePrevious = nodeNext.previous;
+        Node newNode = new Node(nodePrevious, car, nodeNext);
+        nodeNext.previous = newNode;
+        if (nodePrevious != null) {
+            nodePrevious.next = newNode;
         } else {
             first = newNode;
         }
@@ -52,46 +47,48 @@ public class CarLinkedList<T> implements CarList<T> {
     }
 
     @Override
-    public boolean remove(T car) {
-        Node node = first;
-        for (int i = 0; i < size; i++) {
-            if (node.value.equals(car)) {
-                return removeAt(i);
-            }
-            node = node.next;
-        }
-        size--;
-        return false;
+    public T peek() {
+        return size > 0 ? get(0) : null;
     }
 
     @Override
-    public boolean removeAt(int index) {
-        Node deletedNode = getNode(index);
-        Node prevNode = deletedNode.previous;
-        Node nextNode = deletedNode.next;
-        if (prevNode == null) {
-            first = nextNode;
-        } else {
-            prevNode.next = nextNode;
+    public T poll() {
+        T car = get(0);
+        removeAt(0);
+        return car;
+    }
+
+    @Override
+    public boolean remove(T car) {
+        int index = findElement(car);
+        if (index != -1) {
+            return removeAt(index);
         }
-        if (nextNode == null) {
-            last = prevNode;
-        } else {
-            nextNode.previous = prevNode;
-        }
-        size--;
-        return true;
+        return false;
     }
 
     @Override
     public boolean contains(T car) {
-        for (int i = 0; i < size; i++) {
-            Node existT = getNode(i);
-            if (existT.value.equals(car)) {
-                return true;
-            }
+        return findElement(car) != -1;
+    }
+
+    @Override
+    public boolean removeAt(int index) {
+        Node node = getNode(index);
+        Node nodeNext = node.next;
+        Node nodePrevious = node.previous;
+        if (nodeNext != null) {
+            nodeNext.previous = nodePrevious;
+        } else {
+            last = nodePrevious;
         }
-        return false;
+        if (nodePrevious != null) {
+            nodePrevious.next = nodeNext;
+        } else {
+            first = nodeNext;
+        }
+        size--;
+        return true;
     }
 
     @Override
@@ -104,17 +101,17 @@ public class CarLinkedList<T> implements CarList<T> {
         first = null;
         last = null;
         size = 0;
-
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
+
             private Node node = first;
 
             @Override
             public boolean hasNext() {
-                return node.next != null;
+                return node != null;
             }
 
             @Override
@@ -124,6 +121,17 @@ public class CarLinkedList<T> implements CarList<T> {
                 return car;
             }
         };
+    }
+
+    private int findElement(T car) {
+        Node node = first;
+        for (int i = 0; i < size; i++) {
+            if (node.value.equals(car)) {
+                return i;
+            }
+            node = node.next;
+        }
+        return -1;
     }
 
     private Node getNode(int index) {
@@ -138,9 +146,9 @@ public class CarLinkedList<T> implements CarList<T> {
     }
 
     private class Node {
-        Node previous;
-        T value;
-        Node next;
+        private Node previous;
+        private T value;
+        private Node next;
 
         public Node(Node previous, T value, Node next) {
             this.previous = previous;

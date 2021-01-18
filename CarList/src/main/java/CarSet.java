@@ -3,5 +3,4 @@ public interface CarSet<T> extends CarCollection<T> {
     boolean remove(T car);
     int size();
     void clear();
-    boolean contains(T car);
 }

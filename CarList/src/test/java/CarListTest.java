@@ -4,19 +4,19 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CarListTest {
-    private CarList carList;
+
+    private CarList<Car> carList;
 
     @Before
     public void setUp() throws Exception {
-        carList = new CarLinkedList();
+        carList = new CarListArray<>();
         for (int i = 0; i < 100; i++) {
             carList.add(new Car("Brand" + i, i));
         }
-
     }
 
     @Test
-    public void when100ElementsAddedThenSizeMustBe100() {
+    public void whenAdded100ElementsThenSizeMustBe100() {
         assertEquals(100, carList.size());
     }
 
@@ -28,7 +28,7 @@ public class CarListTest {
 
     @Test
     public void whenElementRemovedThenSizeMustBeDecreased() {
-        Car car = new Car("Mazda", 13);
+        Car car = new Car("Toyota", 15);
         carList.add(car);
         assertEquals(101, carList.size());
         assertTrue(carList.remove(car));
@@ -36,9 +36,10 @@ public class CarListTest {
     }
 
     @Test
-    public void whenRemovedNonExistentElementThenReturnFalse() {
-        Car car = new Car("Mazda", 13);
+    public void whenNonExistentElementRemovedThenReturnFalse() {
+        Car car = new Car("Toyota", 15);
         assertFalse(carList.remove(car));
+        assertEquals(100, carList.size());
     }
 
     @Test
@@ -47,57 +48,38 @@ public class CarListTest {
         assertEquals(0, carList.size());
     }
 
-    @Test
-    public void whenSearchItemExistInListThenReturnTrue() {
-        Car car = new Car("BMW", 525);
-        Car car2 = new Car("Toyota", 52);
-        carList.add(car);
-        assertTrue(carList.contains(car));
-        assertFalse(carList.contains(car2));
-    }
-
     @Test(expected = IndexOutOfBoundsException.class)
-    public void whenIndexOutOfBoundsThenThrowException() {
+    public void whenIndexOutOfBoundsThenThrownException() {
         carList.get(100);
     }
 
     @Test
-    public void getMethodMustReturnedRightValue() {
+    public void methodGetReturnedRightValue() {
         Car car = carList.get(0);
         assertEquals("Brand0", car.getBrand());
-
     }
 
     @Test
-    public void addedToTheMiddleOfList() {
-        Car car = new Car("BMW", 2);
-        carList.add(car, 13);
-        Car getCar = carList.get(13);
-        assertEquals("BMW", getCar.getBrand());
+    public void insertIntoMiddle() {
+        Car car = new Car("BMW", 1);
+        carList.add(car, 50);
+        Car carFromList = carList.get(50);
+        assertEquals("BMW", carFromList.getBrand());
     }
 
     @Test
-    public void addedToTheFirstNumberOfList() {
-        Car car = new Car("BMW", 2);
+    public void insertIntoFirstPosition() {
+        Car car = new Car("BMW", 1);
         carList.add(car, 0);
-        Car getCar = carList.get(0);
-        assertEquals("BMW", getCar.getBrand());
+        Car carFromList = carList.get(0);
+        assertEquals("BMW", carFromList.getBrand());
     }
 
     @Test
-    public void addedToTheLastNumberOfList() {
-        Car car = new Car("BMW", 2);
-        carList.add(car, carList.size());
-        Car getCar = carList.get(carList.size() - 1);
-        assertEquals("BMW", getCar.getBrand());
-    }
-
-    @Test
-    public void forEach() {
-        int index = 0;
-        for (Car car : carList) {
-            index++;
-        }
-        assertEquals(100, index);
+    public void insertIntoLastPosition() {
+        Car car = new Car("BMW", 1);
+        carList.add(car, 100);
+        Car carFromList = carList.get(100);
+        assertEquals("BMW", carFromList.getBrand());
     }
 }
