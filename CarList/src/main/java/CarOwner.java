@@ -1,12 +1,14 @@
+import java.util.Objects;
+
 public class CarOwner {
     private int id;
     private String name;
-    private String lastname;
+    private String lastName;
 
-    public CarOwner(int id, String name, String lastname) {
+    public CarOwner(int id, String name, String lastName) {
         this.id = id;
         this.name = name;
-        this.lastname = lastname;
+        this.lastName = lastName;
     }
 
     public int getId() {
@@ -18,7 +20,7 @@ public class CarOwner {
     }
 
     public String getLastname() {
-        return lastname;
+        return lastName;
     }
 
     public void setId(int id) {
@@ -29,7 +31,22 @@ public class CarOwner {
         this.name = name;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastname(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CarOwner carOwner = (CarOwner) o;
+        return id == carOwner.id &&
+                Objects.equals(name, carOwner.name) &&
+                Objects.equals(lastName, carOwner.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, lastName);
     }
 }

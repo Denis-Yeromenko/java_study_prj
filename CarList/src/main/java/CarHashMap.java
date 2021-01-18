@@ -1,4 +1,4 @@
-public class CarHashMap implement CarMap {
+public class CarHashMap implements CarMap {
     private static final int INITIAL_CAPACITY = 16;
     private static final double LOAD_FACTOR = 0.75;
 
