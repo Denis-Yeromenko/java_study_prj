@@ -1,7 +1,4 @@
-public class Fruit {
-
-    public Fruit() {
-
-    }
+public abstract class Fruit {
+    abstract float getWeight();
 
 }

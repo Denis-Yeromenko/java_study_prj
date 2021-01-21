@@ -1,10 +1,10 @@
 public class Apple extends Fruit{
-    private final int WEIGHT = 1;
+    private int weight;
 
     public Apple() {
     }
 
-    public int getWEIGHT() {
-        return WEIGHT;
+    public int getWeight() {
+        return 1;
     }
 }
