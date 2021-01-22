@@ -4,7 +4,9 @@ public class Apple extends Fruit{
     public Apple() {
     }
 
-    public int getWeight() {
-        return 1;
+    @Override
+    public double getWeight() {
+        return 1.0;
     }
+
 }

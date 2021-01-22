@@ -1,4 +1,4 @@
 public abstract class Fruit {
-    abstract float getWeight();
+    abstract double getWeight();
 
 }
