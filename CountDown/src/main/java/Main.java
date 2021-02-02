@@ -7,7 +7,8 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        long genBefore = System.currentTimeMillis();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
         CountDownLatch countDownLatch = new CountDownLatch(3);
         executorService.execute(new Runnable() {
             @Override
@@ -47,26 +48,30 @@ public class Main {
                 long before = System.currentTimeMillis();
                 List<Integer> numberList = new ArrayList<>();
                 for (int i = 0; i < 1000; i++) {
-
+                    int rand = (int) (Math.random() * 1001);
+                    numberList.add(rand);
                 }
-            }
-
-            long after = System.currentTimeMillis();
-                System.out.println("The sum of odd numbers is = "+result);
-                System.out.println("It's time is "+(after -before));
+                int result = 0;
+                for (int number : numberList) {
+                    if (number % 2 == 0) {
+                        result += number;
+                    }
+                }
+                long after = System.currentTimeMillis();
+                System.out.println("The sum of odd numbers in collection is = " + result);
+                System.out.println("It's(collection) time is " + (after - before));
                 countDownLatch.countDown();
+            }
+        });
+        executorService.shutdown();
+        try {
+            countDownLatch.await();
+        } catch (
+                InterruptedException e) {
+            e.printStackTrace();
         }
-    });
-
-        try
-
-    {
-        countDownLatch.await();
-    } catch(
-    InterruptedException e)
-
-    {
-        e.printStackTrace();
-    }
+        long genAfter = System.currentTimeMillis();
         System.out.println("All threads are terminated!");
+        System.out.println("All time is "+ (genAfter - genBefore));
+    }
 }
