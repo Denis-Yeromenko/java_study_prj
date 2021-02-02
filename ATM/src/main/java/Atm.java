@@ -1,6 +1,6 @@
 public class Atm {
     private double initialSum;
-    Object newObj = new Object();
+    private final Object monitor = new Object();
 
     public Atm(double initialSum) {
         this.initialSum = initialSum;
@@ -15,7 +15,7 @@ public class Atm {
     }
 
     public void getCash(String name, double cash) {
-        synchronized (newObj) {
+        synchronized (monitor) {
             System.out.println(name + " are come to ATM");
             try {
                 Thread.sleep(2000);
